@@ -1,5 +1,7 @@
 ﻿using Autofac;
 using AutofacSerilogIntegration;
+using MessageQueue.Business;
+using MessageQueue.DataAccess;
 
 namespace MessageQueue.Host.Configuration
 {
@@ -17,6 +19,8 @@ namespace MessageQueue.Host.Configuration
 
         private void RegisterModules(ContainerBuilder builder)
         {
+            builder.RegisterModule<BusinessModule>();
+            builder.RegisterModule<DataAccessModule>();
         }
 
         private void RegisterServices(ContainerBuilder builder)

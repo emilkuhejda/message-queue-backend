@@ -11,5 +11,10 @@
     <PackageReference Include="Serilog.AspNetCore" Version="4.1.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\components\MessageQueue.Business\MessageQueue.Business.csproj" />
+    <ProjectReference Include="..\..\components\MessageQueue.DataAccess\MessageQueue.DataAccess.csproj" />
+  </ItemGroup>
+
 
 </Project>
