@@ -1,13 +1,12 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
 
   <PropertyGroup>
     <CodeAnalysisRuleSet>..\..\global\MessageQueue.CodeAnalysis.ruleset</CodeAnalysisRuleSet>
-    <EnableNETAnalyzers>true</EnableNETAnalyzers>
-    <AnalysisLevel>5.0</AnalysisLevel>
+    <AnalysisLevel>latest</AnalysisLevel>
   </PropertyGroup>
 
   <ItemGroup>

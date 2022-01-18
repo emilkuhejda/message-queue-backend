@@ -1,4 +1,7 @@
-﻿using Autofac;
+﻿using System.Reflection;
+using Autofac;
+using MessageQueue.Domain.Interfaces.Repositories;
+using Module = Autofac.Module;
 
 namespace MessageQueue.DataAccess
 {
@@ -13,6 +16,12 @@ namespace MessageQueue.DataAccess
 
         private void RegisterServices(ContainerBuilder builder)
         {
+            var assembly = Assembly.GetExecutingAssembly();
+            builder.RegisterAssemblyTypes(assembly).Where(t => t.IsClosedTypeOf(typeof(IRepository<>)))
+                .AsImplementedInterfaces()
+                .InstancePerLifetimeScope();
+
+            builder.RegisterType<UnitOfWork>().AsImplementedInterfaces();
         }
     }
 }
