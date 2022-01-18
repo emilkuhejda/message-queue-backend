@@ -9,9 +9,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MessageQueue.Host", "src\we
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "components", "components", "{335A769F-7495-4284-A056-6EE3D933159C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageQueue.Business", "src\components\MessageQueue.Business\MessageQueue.Business.csproj", "{EE685529-B912-4A4E-8131-35D0A6664FFA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MessageQueue.Business", "src\components\MessageQueue.Business\MessageQueue.Business.csproj", "{EE685529-B912-4A4E-8131-35D0A6664FFA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageQueue.DataAccess", "src\components\MessageQueue.DataAccess\MessageQueue.DataAccess.csproj", "{E5050520-2551-414B-9AE9-340261FF6D51}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MessageQueue.DataAccess", "src\components\MessageQueue.DataAccess\MessageQueue.DataAccess.csproj", "{E5050520-2551-414B-9AE9-340261FF6D51}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_global", "_global", "{E76BCC6A-30EC-4BAF-9D2D-6E3257CC07BB}"
+	ProjectSection(SolutionItems) = preProject
+		src\global\MessageQueue.CodeAnalysis.ruleset = src\global\MessageQueue.CodeAnalysis.ruleset
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
