@@ -43,4 +43,8 @@
 		<ProjectReference Include="..\MessageQueue.Domain\MessageQueue.Domain.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Migrations\" />
+	</ItemGroup>
+
 </Project>

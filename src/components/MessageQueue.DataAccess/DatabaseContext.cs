@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using MessageQueue.DataAccess.EntitiesConfiguration;
+using MessageQueue.Domain.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace MessageQueue.DataAccess
 {
@@ -17,6 +19,10 @@ namespace MessageQueue.DataAccess
             _connectionString = connectionString;
         }
 
+        public DbSet<ActiveQueue>? ActiveQueues { get; set; }
+
+        public DbSet<Message>? Messages { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -27,6 +33,8 @@ namespace MessageQueue.DataAccess
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.ApplyConfiguration(new ActiveQueueConfiguration());
+            modelBuilder.ApplyConfiguration(new MessageConfiguration());
         }
     }
 }
