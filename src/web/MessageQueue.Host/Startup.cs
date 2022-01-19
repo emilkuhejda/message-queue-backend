@@ -1,14 +1,10 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Autofac;
 using MessageQueue.DataAccess;
 using MessageQueue.Domain.Settings;
 using MessageQueue.Host.Configuration;
 using MessageQueue.Host.Extensions;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 
 namespace MessageQueue.Host
 {
@@ -33,6 +29,51 @@ namespace MessageQueue.Host
             services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(appSettings.ConnectionString, providerOptions => providerOptions.CommandTimeout(300)));
 
             services.AddControllers();
+
+            // Swagger
+            services.AddSwaggerGen(configuration =>
+            {
+                configuration.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "MessageQueue API",
+                    Version = "v1"
+                });
+
+                configuration.EnableAnnotations();
+
+                configuration.CustomSchemaIds(tpye =>
+                {
+                    const string ending = "OutputModel";
+                    var returnedValue = tpye.Name;
+                    if (returnedValue.EndsWith(ending, StringComparison.OrdinalIgnoreCase))
+                        returnedValue = returnedValue.Replace(ending, string.Empty, StringComparison.OrdinalIgnoreCase);
+
+                    return returnedValue;
+                });
+
+                configuration.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    In = ParameterLocation.Header,
+                    Description = "Please enter into field the word 'Bearer' following by space and JWT",
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey
+                });
+
+                configuration.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Id = "Bearer",
+                                Type = ReferenceType.SecurityScheme
+                            }
+                        },
+                        new List<string>()
+                    }
+                });
+            });
         }
 
         public void ConfigureContainer(ContainerBuilder builder)
@@ -52,6 +93,13 @@ namespace MessageQueue.Host
             app.MigrateDatabase();
 
             app.UseHttpsRedirection();
+
+            // Swagger
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "MessageQueue API V1");
+            });
 
             app.UseRouting();
 
