@@ -1,7 +1,9 @@
 ﻿using Autofac;
 using AutofacSerilogIntegration;
+using AutoMapper;
 using MessageQueue.Business;
 using MessageQueue.DataAccess;
+using MessageQueue.Host.Filters;
 
 namespace MessageQueue.Host.Configuration
 {
@@ -30,10 +32,27 @@ namespace MessageQueue.Host.Configuration
 
         private void ConfigureFilters(ContainerBuilder builder)
         {
+            builder.RegisterType<ApiExceptionFilter>().AsSelf();
         }
 
         private void ConfigureMappings(ContainerBuilder builder)
         {
+            builder.Register(context =>
+                {
+                    var config = new MapperConfiguration(cfg =>
+                    {
+                        foreach (var profile in context.Resolve<IEnumerable<Profile>>())
+                        {
+                            cfg.AddProfile(profile);
+                        }
+                    });
+
+                    config.AssertConfigurationIsValid();
+                    return config.CreateMapper();
+                })
+                .As<IMapper>()
+                .SingleInstance()
+                .AutoActivate();
         }
     }
 }

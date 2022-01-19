@@ -10,7 +10,7 @@ namespace MessageQueue.Domain.Interfaces.Repositories
 
         void Remove(T entity);
 
-        Task<T> GetAsync(Guid entityId, CancellationToken cancellationToken);
+        Task<T?> GetAsync(Guid entityId, CancellationToken cancellationToken);
 
         Task<T[]> GetAllAsync(CancellationToken cancellationToken);
 
