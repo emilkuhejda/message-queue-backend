@@ -7,7 +7,7 @@ namespace MessageQueue.DataAccess
         private readonly string _connectionString;
 
         public DatabaseContext(DbContextOptions options)
-            : base(options)
+            : this(string.Empty, options)
         {
         }
 

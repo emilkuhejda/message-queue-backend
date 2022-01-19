@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.AspNetCore.Mvc;
-using Serilog;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace MessageQueue.Host.Controllers
 {
@@ -10,17 +6,10 @@ namespace MessageQueue.Host.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
-        private readonly ILogger _logger;
-
         private static readonly string[] Summaries = new[]
         {
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
-
-        public WeatherForecastController(ILogger logger)
-        {
-            _logger = logger.ForContext<WeatherForecastController>();
-        }
 
         [HttpGet]
         public IEnumerable<object> Get()

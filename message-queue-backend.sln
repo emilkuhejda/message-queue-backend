@@ -18,7 +18,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_global", "_global", "{E76B
 		src\global\MessageQueue.CodeAnalysis.ruleset = src\global\MessageQueue.CodeAnalysis.ruleset
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageQueue.Domain", "src\components\MessageQueue.Domain\MessageQueue.Domain.csproj", "{CA8B906E-4BD4-4E8D-A789-C64504B46B30}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MessageQueue.Domain", "src\components\MessageQueue.Domain\MessageQueue.Domain.csproj", "{CA8B906E-4BD4-4E8D-A789-C64504B46B30}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageQueue.Common", "src\components\MessageQueue.Common\MessageQueue.Common.csproj", "{201C047E-026A-4506-AE5F-3062711DF541}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -42,6 +44,10 @@ Global
 		{CA8B906E-4BD4-4E8D-A789-C64504B46B30}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CA8B906E-4BD4-4E8D-A789-C64504B46B30}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CA8B906E-4BD4-4E8D-A789-C64504B46B30}.Release|Any CPU.Build.0 = Release|Any CPU
+		{201C047E-026A-4506-AE5F-3062711DF541}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{201C047E-026A-4506-AE5F-3062711DF541}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{201C047E-026A-4506-AE5F-3062711DF541}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{201C047E-026A-4506-AE5F-3062711DF541}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -51,6 +57,7 @@ Global
 		{EE685529-B912-4A4E-8131-35D0A6664FFA} = {335A769F-7495-4284-A056-6EE3D933159C}
 		{E5050520-2551-414B-9AE9-340261FF6D51} = {335A769F-7495-4284-A056-6EE3D933159C}
 		{CA8B906E-4BD4-4E8D-A789-C64504B46B30} = {335A769F-7495-4284-A056-6EE3D933159C}
+		{201C047E-026A-4506-AE5F-3062711DF541} = {335A769F-7495-4284-A056-6EE3D933159C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F3F112AA-213A-4D85-842E-E74106393D81}
