@@ -6,6 +6,7 @@ using MessageQueue.Domain.InputModels;
 using MessageQueue.Domain.Interfaces.Commands;
 using MessageQueue.Domain.Interfaces.Repositories;
 using MessageQueue.Domain.Models;
+using MessageQueue.Domain.OutputModels;
 using Serilog;
 
 namespace MessageQueue.Business.Commands
@@ -26,7 +27,7 @@ namespace MessageQueue.Business.Commands
             _logger = logger;
         }
 
-        public async Task<CommandResult> ExecuteAsync(CreateActiveQueueInputModel parameter, ClaimsPrincipal principal, CancellationToken cancellationToken)
+        public async Task<CommandResult<OkOutputModel>> ExecuteAsync(CreateActiveQueueInputModel parameter, ClaimsPrincipal principal, CancellationToken cancellationToken)
         {
             if (!parameter.Validate().IsValid)
             {
@@ -44,7 +45,7 @@ namespace MessageQueue.Business.Commands
 
             _logger.Information($"New queue {activeQueue.Name} was created");
 
-            return new CommandResult();
+            return new CommandResult<OkOutputModel>(new OkOutputModel());
         }
     }
 }
