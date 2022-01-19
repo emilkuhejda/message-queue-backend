@@ -1,9 +1,6 @@
-﻿using System;
-using MessageQueue.DataAccess;
-using Microsoft.AspNetCore.Builder;
+﻿using MessageQueue.DataAccess;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Serilog;
+using ILogger = Serilog.ILogger;
 
 namespace MessageQueue.Host.Extensions
 {

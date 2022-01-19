@@ -1,7 +1,4 @@
-﻿using System;
-using System.Data;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using System.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 
@@ -37,7 +34,7 @@ namespace MessageQueue.DataAccess
         {
             if (disposing)
             {
-                _context?.Dispose();
+                _context.Dispose();
             }
         }
 
