@@ -1,6 +1,5 @@
 ﻿using System.Security.Claims;
 using AutoMapper;
-using MessageQueue.Domain.Exceptions;
 using MessageQueue.Domain.Infrastructure;
 using MessageQueue.Domain.InputModels;
 using MessageQueue.Domain.Interfaces.Commands;
@@ -29,17 +28,13 @@ namespace MessageQueue.Business.Commands
 
         public async Task<CommandResult<OkOutputModel>> ExecuteAsync(CreateActiveQueueInputModel parameter, ClaimsPrincipal principal, CancellationToken cancellationToken)
         {
-            if (!parameter.Validate().IsValid)
+            var inputValidationResult = parameter.Validate();
+            if (!inputValidationResult.IsValid)
             {
-                throw new OperationErrorException();
+                return new CommandResult<OkOutputModel>(inputValidationResult.Errors);
             }
 
             var activeQueue = _mapper.Map<ActiveQueue>(parameter);
-            if (!activeQueue.Validate().IsValid)
-            {
-                throw new OperationErrorException();
-            }
-
             await _activeQueueRepository.AddAsync(activeQueue);
             await _activeQueueRepository.SaveAsync(cancellationToken);
 

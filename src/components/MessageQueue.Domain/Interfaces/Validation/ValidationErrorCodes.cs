@@ -2,6 +2,8 @@
 {
     public static class ValidationErrorCodes
     {
+        public static string NotFound => nameof(NotFound);
+
         public static string EmptyField => nameof(EmptyField);
 
         public static string InvalidId => nameof(InvalidId);
