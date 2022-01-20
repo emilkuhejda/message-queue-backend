@@ -6,3 +6,4 @@
 using System.Diagnostics.CodeAnalysis;
 
 [assembly: SuppressMessage("Design", "CA1052:Static holder types should be Static or NotInheritable", Justification = "By design", Scope = "type", Target = "~T:MessageQueue.Host.Program")]
+[assembly: SuppressMessage("Design", "CA1019:Define accessors for attribute arguments", Justification = "By design", Scope = "member", Target = "~M:MessageQueue.Host.Filters.ApiExceptionFilter.#ctor(Serilog.ILogger)")]

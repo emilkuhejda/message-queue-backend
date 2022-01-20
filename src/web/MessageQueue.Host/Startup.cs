@@ -3,6 +3,7 @@ using MessageQueue.DataAccess;
 using MessageQueue.Domain.Settings;
 using MessageQueue.Host.Configuration;
 using MessageQueue.Host.Extensions;
+using MessageQueue.Host.Filters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
@@ -73,6 +74,11 @@ namespace MessageQueue.Host
                         new List<string>()
                     }
                 });
+            });
+
+            services.AddMvcCore(options =>
+            {
+                options.Filters.AddService<ApiExceptionFilter>();
             });
         }
 
