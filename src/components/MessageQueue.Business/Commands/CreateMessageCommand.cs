@@ -16,8 +16,11 @@ namespace MessageQueue.Business.Commands
             _messageRepository = messageRepository;
         }
 
-        public async Task<CommandResult<OkOutputModel>> ExecuteAsync(ActiveQueue parameter, ClaimsPrincipal principal, CancellationToken cancellationToken)
+        public async Task<CommandResult<OkOutputModel>> ExecuteAsync(Message parameter, ClaimsPrincipal principal, CancellationToken cancellationToken)
         {
+            await _messageRepository.AddAsync(parameter);
+            await _messageRepository.SaveAsync(cancellationToken);
+
             return new CommandResult<OkOutputModel>(new OkOutputModel());
         }
     }

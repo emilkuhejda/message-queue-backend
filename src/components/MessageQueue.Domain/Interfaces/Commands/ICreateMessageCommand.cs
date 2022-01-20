@@ -5,7 +5,7 @@ using MessageQueue.Domain.OutputModels;
 
 namespace MessageQueue.Domain.Interfaces.Commands
 {
-    public interface ICreateMessageCommand : ICommand<ActiveQueue, CommandResult<OkOutputModel>>
+    public interface ICreateMessageCommand : ICommand<Message, CommandResult<OkOutputModel>>
     {
     }
 }

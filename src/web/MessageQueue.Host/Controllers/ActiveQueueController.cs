@@ -2,6 +2,7 @@
 using MessageQueue.Domain.InputModels;
 using MessageQueue.Domain.Interfaces.Commands;
 using MessageQueue.Domain.Interfaces.Queries;
+using MessageQueue.Domain.Models;
 using MessageQueue.Domain.OutputModels;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -68,6 +69,11 @@ namespace MessageQueue.Host.Controllers
         [SwaggerOperation(OperationId = "CreateMessage")]
         public async Task<ActionResult> CreateMessage(Guid activeQueueId, CreateMessageInputModel createMessageInputModel, CancellationToken cancellationToken)
         {
+            if (!createMessageInputModel.Validate().IsValid)
+            {
+                return BadRequest();
+            }
+
             var activeQueueQueryResult = await _getActiveQueueQuery.Value.ExecuteAsync(activeQueueId, HttpContext.User, cancellationToken);
             if (!activeQueueQueryResult.IsSuccess)
             {
@@ -79,7 +85,11 @@ namespace MessageQueue.Host.Controllers
                 return NotFound();
             }
 
-            var commandResult = await _createMessageCommand.Value.ExecuteAsync(activeQueueQueryResult.Value, HttpContext.User, cancellationToken);
+            var message = _mapper.Value.Map<Message>(
+                createMessageInputModel,
+                opt => opt.AfterMap((_, m) => m.ActiveQueueId = activeQueueQueryResult.Value.Id));
+
+            var commandResult = await _createMessageCommand.Value.ExecuteAsync(message, HttpContext.User, cancellationToken);
             return Ok(commandResult.Value);
         }
     }
