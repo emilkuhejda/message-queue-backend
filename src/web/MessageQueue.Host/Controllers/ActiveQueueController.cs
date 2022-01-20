@@ -58,6 +58,11 @@ namespace MessageQueue.Host.Controllers
         public async Task<IActionResult> Create(CreateActiveQueueInputModel createActiveQueueInputModel, CancellationToken cancellationToken)
         {
             var commandResult = await _createActiveQueueCommand.Value.ExecuteAsync(createActiveQueueInputModel, HttpContext.User, cancellationToken);
+            if (!commandResult.IsSuccess)
+            {
+                return BadRequest(_mapper.Value.Map<ErrorResultOutputModel>(commandResult));
+            }
+
             return Ok(commandResult.Value);
         }
 
@@ -75,14 +80,9 @@ namespace MessageQueue.Host.Controllers
             }
 
             var activeQueueQueryResult = await _getActiveQueueQuery.Value.ExecuteAsync(activeQueueId, HttpContext.User, cancellationToken);
-            if (!activeQueueQueryResult.IsSuccess)
+            if (!activeQueueQueryResult.IsSuccess || activeQueueQueryResult.Value == null)
             {
                 return NotFound(_mapper.Value.Map<ErrorResultOutputModel>(activeQueueQueryResult));
-            }
-
-            if (activeQueueQueryResult.Value == null)
-            {
-                return NotFound();
             }
 
             var message = _mapper.Value.Map<Message>(
@@ -90,6 +90,11 @@ namespace MessageQueue.Host.Controllers
                 opt => opt.AfterMap((_, m) => m.ActiveQueueId = activeQueueQueryResult.Value.Id));
 
             var commandResult = await _createMessageCommand.Value.ExecuteAsync(message, HttpContext.User, cancellationToken);
+            if (!commandResult.IsSuccess)
+            {
+                return BadRequest(_mapper.Value.Map<ErrorResultOutputModel>(commandResult));
+            }
+
             return Ok(commandResult.Value);
         }
     }

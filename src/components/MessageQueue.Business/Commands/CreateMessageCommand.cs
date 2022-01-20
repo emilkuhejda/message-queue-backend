@@ -18,6 +18,12 @@ namespace MessageQueue.Business.Commands
 
         public async Task<CommandResult<OkOutputModel>> ExecuteAsync(Message parameter, ClaimsPrincipal principal, CancellationToken cancellationToken)
         {
+            var inputValidationResult = parameter.Validate();
+            if (!inputValidationResult.IsValid)
+            {
+                return new CommandResult<OkOutputModel>(inputValidationResult.Errors);
+            }
+
             await _messageRepository.AddAsync(parameter);
             await _messageRepository.SaveAsync(cancellationToken);
 
