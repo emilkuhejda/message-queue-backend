@@ -1,6 +1,4 @@
-﻿using System.Data;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage;
+﻿using MessageQueue.Domain.Interfaces.Repositories;
 
 namespace MessageQueue.DataAccess
 {
@@ -16,11 +14,6 @@ namespace MessageQueue.DataAccess
         public Task SaveAsync(CancellationToken cancellationToken = default)
         {
             return _context.SaveChangesAsync(cancellationToken);
-        }
-
-        public Task<IDbContextTransaction> BeginTransactionAsync(CancellationToken cancellationToken = default)
-        {
-            return _context.Database.BeginTransactionAsync(IsolationLevel.ReadCommitted, cancellationToken);
         }
 
         public void Dispose()
